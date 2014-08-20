@@ -40,8 +40,8 @@ public final class JavaWordCount {
       System.exit(1);
     }
 
-//    SparkConf sparkConf = new SparkConf().setAppName("JavaWordCount").setMaster("spark://teds-MacBook-Pro.local:7077");
-    SparkConf sparkConf = new SparkConf().setAppName("JavaWordCount");
+    SparkConf sparkConf = new SparkConf().setAppName("JavaWordCount").setMaster("spark://localhost:7077");
+//    SparkConf sparkConf = new SparkConf().setAppName("JavaWordCount");
     JavaSparkContext ctx = new JavaSparkContext(sparkConf);
     JavaRDD<String> lines = ctx.textFile(args[0], 1);
 
