@@ -1,4 +1,4 @@
-package org.apache.spark.examples.com.realtimecep.spark.scala
+package org.apache.spark.examples.com.realtimecep.spark.scala.batch
 
 import org.apache.spark.{SparkConf, SparkContext}
 
