@@ -21,8 +21,8 @@ object HelloWorldScala {
     println("Hello Spark!!")
 
     val conf = new SparkConf().setAppName("Hello Spark!!")
-      //    .setMaster("spark://127.0.0.1:7077")
-      .set("spark.executor.memory", "8g")
+      .setMaster("local[*]")
+      .set("spark.executor.memory", "1g")
     val sc = new SparkContext(conf)
     println(args(0))
     val file = sc.textFile(args(0)).cache()

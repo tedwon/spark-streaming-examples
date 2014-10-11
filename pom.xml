@@ -21,6 +21,7 @@
         <spark.version>1.1.0</spark.version>
         <actor.version>2.3.6</actor.version>
         <maven.scala.plugin.version>3.1.6</maven.scala.plugin.version>
+        <maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
     </properties>
 
     <build>
@@ -106,15 +107,42 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                     <resource>reference.conf</resource>
                                 </transformer>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
                                     <resource>log4j.properties</resource>
                                 </transformer>
                             </transformers>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven-assembly-plugin.version}</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.apache.spark.examples.com.realtimecep.spark.scala.streaming.akka.StreamingApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -127,10 +155,10 @@
             <artifactId>spark-core_2.10</artifactId>
             <version>1.1.0</version>
             <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<artifactId>scala-library</artifactId>-->
-                    <!--<groupId>org.scala-lang</groupId>-->
-                <!--</exclusion>-->
+            <!--<exclusion>-->
+            <!--<artifactId>scala-library</artifactId>-->
+            <!--<groupId>org.scala-lang</groupId>-->
+            <!--</exclusion>-->
             <!--</exclusions>-->
         </dependency>
         <dependency>

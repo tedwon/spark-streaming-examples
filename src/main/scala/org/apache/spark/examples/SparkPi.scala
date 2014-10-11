@@ -25,6 +25,7 @@ import org.apache.spark._
 object SparkPi {
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("Spark Pi")
+    .setMaster("local[*]")
     val spark = new SparkContext(conf)
     val slices = if (args.length > 0) args(0).toInt else 2
     val n = 100000 * slices
