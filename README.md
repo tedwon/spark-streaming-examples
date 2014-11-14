@@ -1,4 +1,4 @@
-sample-spark-maven-project
+Spark Streaming Example Test Project
 ==========================
 
-Template Spark Maven Project
+
