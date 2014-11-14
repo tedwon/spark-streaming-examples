@@ -7,12 +7,30 @@
         <param name="Threshold" value="DEBUG"/>
         <param name="Target" value="System.out"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n"/>
+            <!--<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n"/>-->
+            <!--<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}:%L] %m%n"/>-->
+            <!--for more details-->
+            <!--<param name="ConversionPattern" value="%-5p [%d{yyyy-MM-dd HH:mm:ss}] [%t] [%C.%M(%F:%L)] - %m%n"/>-->
+            <param name="ConversionPattern" value="%-5p [%t] [%C.%M(%F:%L)] - %m%n"/>
+            <!--for better performance-->
+            <!--<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] %-5p %C{1}.%M - %m%n"/>-->
         </layout>
     </appender>
 
-    <logger name="org.jboss">
-        <level value="DEBUG"/>
+    <logger name="kafka">
+        <level value="WARN"/>
+    </logger>
+
+    <logger name="org.apache.spark">
+        <level value="ERROR"/>
+    </logger>
+
+    <logger name="org.apache.zookeeper">
+        <level value="WARN"/>
+    </logger>
+
+    <logger name="org.apache.hadoop.hbase">
+        <level value="WARN"/>
     </logger>
 
     <root>
