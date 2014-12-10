@@ -18,7 +18,8 @@
         <!--<scala.version>2.11.1</scala.version>-->
         <scala.version>2.10.4</scala.version>
         <scalatest.version>2.2.0</scalatest.version>
-        <spark.version>1.1.0</spark.version>
+        <!--<spark.version>1.1.1</spark.version>-->
+        <spark.version>1.1.0-cdh5.2.0</spark.version>
         <actor.version>2.3.6</actor.version>
         <maven.scala.plugin.version>3.1.6</maven.scala.plugin.version>
         <maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
@@ -132,7 +133,9 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>org.apache.spark.examples.com.realtimecep.spark.scala.streaming.akka.StreamingApp</mainClass>
+                            <mainClass>
+                                org.apache.spark.examples.com.realtimecep.spark.scala.streaming.akka.StreamingApp
+                            </mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -196,11 +199,33 @@
             <version>1.7.7</version>
         </dependency>
         <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-core</artifactId>
+            <version>7.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-client-hotrod</artifactId>
+            <version>7.0.0.Final</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+        </repository>
+        <repository>
+            <id>Typesafe repository</id>
+            <url>http://repo.typesafe.com/typesafe/releases/</url>
+        </repository>
+    </repositories>
 
     <organization>
         <name>Ted Won</name>

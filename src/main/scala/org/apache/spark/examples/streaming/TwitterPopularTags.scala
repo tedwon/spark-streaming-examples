@@ -30,6 +30,8 @@ import org.apache.spark.SparkConf
  *
  * Run this on your local machine as
  *
+ * LOCAL onq1n2KcJSVSlprKRBqVLTvbc ULrdymYiX4wBZ6v4fN8AvzppE0Je996Sn6RMYP9Cbr6bR2IK95 23530469-82jolLbzGfPms8uIMst1rEXYSl3YuJrPyy6BuLeSp Zsuz8Rw26h4lyX9TI4Pr20RMXfZ9zJ99A4mchPc0w4JF3
+ *
  */
 object TwitterPopularTags {
   def main(args: Array[String]) {
@@ -78,9 +80,29 @@ object TwitterPopularTags {
                      .map{case (topic, count) => (count, topic)}
                      .transform(_.sortByKey(false))
 
-    val topCounts10 = hashTags.map((_, 1)).reduceByKeyAndWindow(_ + _, Seconds(60))
-                     .map{case (topic, count) => (count, topic)}
-                     .transform(_.sortByKey(false))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    val topCounts10 = hashTags.map((_, 1)).reduceByKeyAndWindow(_ + _, Seconds(60))
+//                     .map{case (topic, count) => (count, topic)}
+//                     .transform(_.sortByKey(false))
 
 
     // Print popular hashtags
