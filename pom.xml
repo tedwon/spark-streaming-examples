@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.realtimecep</groupId>
-    <artifactId>spark-streaming-examples</artifactId>
+    <groupId>org.jbugkorea</groupId>
+    <artifactId>spark-examples</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>spark-streaming-examples</name>
-    <url>http://tedwon.atlassian.net</url>
+    <name>spark-examples</name>
+    <url>https://www.facebook.com/groups/jbossusergroup/</url>
     <inceptionYear>2014</inceptionYear>
 
     <properties>
@@ -19,7 +19,7 @@
         <scala.version>2.10.4</scala.version>
         <scalatest.version>2.2.0</scalatest.version>
         <!--<spark.version>1.1.1</spark.version>-->
-        <spark.version>1.1.0-cdh5.2.0</spark.version>
+        <spark.version>1.6.2</spark.version>
         <actor.version>2.3.6</actor.version>
         <maven.scala.plugin.version>3.1.6</maven.scala.plugin.version>
         <maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
@@ -228,8 +228,8 @@
     </repositories>
 
     <organization>
-        <name>Ted Won</name>
-        <url>http://tedwon.com</url>
+        <name>JBoss User Group Korea</name>
+        <url>https://www.facebook.com/groups/jbossusergroup/</url>
     </organization>
 
     <developers>
@@ -237,9 +237,10 @@
             <id>tedwon</id>
             <name>Ted Won</name>
             <roles>
-                <role>Architect</role>
+                <role>Software Architect</role>
+                <role>Software Engineer</role>
             </roles>
-            <email>realtimecep@gmail.com</email>
+            <email>iamtedwon@gmail.com</email>
         </developer>
     </developers>
 </project>

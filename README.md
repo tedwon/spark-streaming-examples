@@ -1,4 +1,4 @@
-Spark Streaming Example Test Project
+Spark Example Test Project
 ==========================
 
 
