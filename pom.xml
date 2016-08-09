@@ -153,6 +153,13 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-spark</artifactId>
+            <version>0.3.0.Final-redhat-1</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_2.10</artifactId>
@@ -197,16 +204,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
-            <version>7.0.0.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-client-hotrod</artifactId>
-            <version>7.0.0.Final</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

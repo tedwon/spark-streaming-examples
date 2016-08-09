@@ -1,9 +1,8 @@
-package com.realtimecep
+package org.jbugkorea
 
 import java.util
 
-import org.infinispan.client.hotrod.event.{ClientCacheEntryRemovedEvent, ClientCacheEntryModifiedEvent, ClientCacheEntryCreatedEvent, ClientEvent}
-import org.infinispan.client.hotrod.{VersionedValue, RemoteCache, RemoteCacheManager}
+import org.infinispan.client.hotrod.{RemoteCache, RemoteCacheManager, VersionedValue}
 import org.infinispan.server.test.client.hotrod.EventLogListener
 import org.junit.Assert._
 import org.junit.{After, Before, Test}
@@ -23,6 +22,27 @@ class InfinispanScalaTest {
 
   @After
   def tearDown: Unit = {
+  }
+
+  @Test
+  def put = {
+
+    val cacheManager = new RemoteCacheManager
+    val cache: RemoteCache[Integer, User] = cacheManager.getCache()
+
+    println(cache.keySet().size())
+
+    println(cache.get("c"))
+
+    val key = 1
+    val value = new User("a", 1)
+    cache.put(key, value)
+    cache.put(2, new User("b", 2))
+
+    val result = cache.get(key)
+
+    assertNotNull(result)
+
   }
 
   @Test
