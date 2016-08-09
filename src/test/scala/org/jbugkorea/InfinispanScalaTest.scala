@@ -30,6 +30,9 @@ class InfinispanScalaTest {
     val cacheManager = new RemoteCacheManager
     val cache: RemoteCache[Integer, User] = cacheManager.getCache()
 
+    val user: User = cache.get(0L)
+    println(user)
+
     println(cache.keySet().size())
 
     println(cache.get("c"))
