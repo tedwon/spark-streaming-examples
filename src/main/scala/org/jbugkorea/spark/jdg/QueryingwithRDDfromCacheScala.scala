@@ -9,7 +9,11 @@ import org.infinispan.client.hotrod.{RemoteCache, RemoteCacheManager}
 import org.infinispan.spark.rdd.InfinispanRDD
 import org.jbugkorea.User
 
-object CreatRDDfromCacheScala {
+import org.apache.spark.SparkContext
+import org.apache.spark.sql.SQLContext
+
+
+object QueryingwithRDDfromCacheScala {
   def main(args: Array[String]) {
 
     Logger.getLogger("org").setLevel(Level.WARN)
@@ -39,10 +43,19 @@ object CreatRDDfromCacheScala {
 
     infinispanRDD.foreach(println)
 
-    val values: RDD[User] = infinispanRDD.values
+    val usersRDD: RDD[User] = infinispanRDD.values
 
-    val count = values.count()
+    val count = usersRDD.count()
 
     println(count)
+
+
+    // Create a SQLContext, register a data frame and table
+    val sqlContext = new SQLContext(sc)
+    val dataFrame = sqlContext.createDataFrame(usersRDD, classOf[User])
+    dataFrame.registerTempTable("users")
+
+    // Run the Query and collect the results
+    val rows = sqlContext.sql("SELECT author, count(*) as a from books WHERE author != 'N/A' GROUP BY author ORDER BY a desc").collect()
   }
 }
