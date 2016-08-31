@@ -53,6 +53,16 @@ public class Book implements Serializable {
     public int hashCode() {
         return Objects.hash(title, author, publicationYear);
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Book{");
+        sb.append("title='").append(title).append('\'');
+        sb.append(", author='").append(author).append('\'');
+        sb.append(", publicationYear='").append(publicationYear).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
 
 
