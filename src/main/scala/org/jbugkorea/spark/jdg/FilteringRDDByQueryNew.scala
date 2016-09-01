@@ -77,7 +77,8 @@ object FilteringRDDByQueryNew {
     val rdd = new InfinispanRDD[Int, Person](sc, configuration)
 
     val query = Search.getQueryFactory(defaultCache)
-      .from(classOf[Person]).having("address.number").gt(10)
+//      .from(classOf[Person]).having("address.number").gt(10)
+      .from(classOf[Person]).having("name").like("name1%")
       .toBuilder[RemoteQuery].build()
 
     val filteredRdd = rdd.filterByQuery[Person](query, classOf[Person])
