@@ -1,13 +1,15 @@
 package org.jbugkorea.spark.jdg
 
+import java.util
 import java.util.Properties
 
+import com.google.common.collect.Sets
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 import org.infinispan.client.hotrod.{RemoteCache, RemoteCacheManager}
 import org.infinispan.spark.rdd.InfinispanRDD
-import org.jbugkorea.Book
+import org.jbugkorea.{Author, Book}
 
 object CreatRDDFromJDGScala {
   def main(args: Array[String]) {
@@ -19,8 +21,11 @@ object CreatRDDFromJDGScala {
     val cache: RemoteCache[Integer, Book] = cacheManager.getCache()
 
     // Put some sample data to the remote cache
-    val bookOne = new Book("Linux Bible", "Negus, Chris", "2015")
-    val bookTwo = new Book("Java 8 in Action", "Urma, Raoul-Gabriel", "2014")
+    val authors = Sets.newHashSet[Author]
+    authors.add(new Author("Negus, Chris", ""))
+    authors.add(new Author("Urma, Raoul-Gabriel", ""))
+    val bookOne = new Book("Linux Bible", "desc", 2015, authors)
+    val bookTwo = new Book("Java 8 in Action", "desc", 2014, authors)
     cache.put(1, bookOne)
     cache.put(2, bookTwo)
 
