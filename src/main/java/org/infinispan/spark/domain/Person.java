@@ -1,5 +1,6 @@
 package org.infinispan.spark.domain;
 
+import com.google.common.base.Objects;
 import org.infinispan.commons.io.UnsignedNumeric;
 import org.infinispan.commons.marshall.Externalizer;
 import org.infinispan.commons.marshall.SerializeWith;
@@ -54,4 +55,12 @@ public class Person {
       }
    }
 
+   @Override
+   public String toString() {
+      return Objects.toStringHelper(this)
+              .add("name", name)
+              .add("age", age)
+              .add("address", address)
+              .toString();
+   }
 }

@@ -1,5 +1,6 @@
 package org.infinispan.spark.domain;
 
+import com.google.common.base.Objects;
 import org.infinispan.commons.io.UnsignedNumeric;
 import org.infinispan.commons.marshall.Externalizer;
 import org.infinispan.commons.marshall.SerializeWith;
@@ -52,5 +53,14 @@ public class Address {
          String country = input.readUTF();
          return new Address(street, number, country);
       }
+   }
+
+   @Override
+   public String toString() {
+      return Objects.toStringHelper(this)
+              .add("street", street)
+              .add("number", number)
+              .add("country", country)
+              .toString();
    }
 }

@@ -4,6 +4,7 @@ import java.util
 import java.util.Properties
 
 import org.apache.log4j.{Level, Logger}
+import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder
 import org.infinispan.client.hotrod.impl.query.RemoteQuery
@@ -12,7 +13,7 @@ import org.infinispan.client.hotrod.{RemoteCacheManager, Search}
 import org.infinispan.protostream.FileDescriptorSource
 import org.infinispan.query.remote.client.ProtobufMetadataManagerConstants
 import org.infinispan.spark.domain.{Address, AddressMarshaller, Person, PersonMarshaller}
-import org.infinispan.spark.rdd.InfinispanRDD
+import org.infinispan.spark.rdd.{FilteredInfinispanRDD, InfinispanRDD}
 
 object FilteringRDDByQueryNew {
 
@@ -81,8 +82,13 @@ object FilteringRDDByQueryNew {
 
     val filteredRdd = rdd.filterByQuery[Person](query, classOf[Person])
 
-    val result = filteredRdd.values.collect()
+    filteredRdd.foreach(println)
 
-    println(result)
+    val filteredPersonRdd: RDD[Person] = filteredRdd.values
+
+    val count = filteredPersonRdd.count()
+
+    println(count)
+
   }
 }
