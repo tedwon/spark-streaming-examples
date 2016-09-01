@@ -56,8 +56,10 @@ object FilteringRDDByQueryNew {
     }
 
     val defaultCache = cacheManager.getCache[Int, Person]
+    defaultCache.clear()
     (1 to 20000000).foreach { idx =>
       defaultCache.put(idx, new Person(s"name$idx", idx, new Address(s"street$idx", idx, "N/A")));
+      println(idx)
       Thread.sleep(100)
     }
 

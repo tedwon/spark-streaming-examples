@@ -2,17 +2,16 @@ package org.jbugkorea.spark.jdg
 
 import java.util.Properties
 
-import org.infinispan.spark.stream._
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
-import org.infinispan.client.hotrod.event.ClientEvent.Type
-import org.infinispan.spark.domain.Person
+import org.infinispan.spark.stream._
+import org.jbugkorea.User
 
 
-object FilteringRDDByQueryNew {
+object CreatingDStream {
 
   def main(args: Array[String]) {
     Logger.getLogger("org").setLevel(Level.WARN)
@@ -31,13 +30,14 @@ object FilteringRDDByQueryNew {
 
     val ssc = new StreamingContext(sc, Seconds(1))
 
-    val stream = new InfinispanInputDStream[String, Person](ssc, StorageLevel.MEMORY_ONLY, configuration)
+    val stream = new InfinispanInputDStream[String, User](ssc, StorageLevel.MEMORY_ONLY, configuration)
 
     // Filter only created entries
-    val createdBooksRDD = stream.filter { case (_, _, t) => t == Type.CLIENT_CACHE_ENTRY_CREATED }
+    val createdBooksRDD = stream.filter { case (_, _, t) => t == org.infinispan.client.hotrod.event.ClientEvent.Type.CLIENT_CACHE_ENTRY_CREATED }
 
     // Reduce last 30 seconds of data, every 10 seconds
-    val windowedRDD: DStream[Long] = createdBooksRDD.count().reduceByWindow(_ + _, Seconds(30), Seconds(10))
+    //    val windowedRDD: DStream[Long] = createdBooksRDD.count().reduceByWindow(_ + _, Seconds(30), Seconds(10))
+    val windowedRDD: DStream[Long] = createdBooksRDD.count().reduceByWindow(_ + _, Seconds(3), Seconds(1))
 
     // Prints the results, couting the number of occurences in each individual RDD
     windowedRDD.foreachRDD { rdd => println(rdd.reduce(_ + _)) }
