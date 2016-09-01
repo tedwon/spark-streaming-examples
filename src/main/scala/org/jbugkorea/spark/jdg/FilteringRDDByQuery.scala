@@ -1,14 +1,17 @@
 package org.jbugkorea.spark.jdg
 
-import java.io._
+import java.util
+import java.util.Properties
 
-import org.apache.commons.io.FileUtils
 import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder
 import org.infinispan.client.hotrod.marshall.ProtoStreamMarshaller
-import org.infinispan.client.hotrod.{RemoteCache, RemoteCacheManager}
+import org.infinispan.client.hotrod.{RemoteCache, RemoteCacheManager, Search}
 import org.infinispan.protostream.FileDescriptorSource
+import org.infinispan.query.dsl.Query
 import org.infinispan.query.remote.client.ProtobufMetadataManagerConstants
+import org.infinispan.spark.rdd.InfinispanRDD
 import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.Person
 import org.jboss.as.quickstarts.datagrid.hotrod.query.marshallers.{PersonMarshaller, PhoneNumberMarshaller, PhoneTypeMarshaller}
 
@@ -39,7 +42,6 @@ object FilteringRDDByQuery {
     cacheManager.getCache(ProtobufMetadataManagerConstants.PROTOBUF_METADATA_CACHE_NAME)
     metadataCache.put("my_protobuf_schema.proto", readResource(PROTOBUF_DEFINITION_RESOURCE))
 
-
     val person = new Person
     person.setId(0)
     person.setName("a")
@@ -49,12 +51,40 @@ object FilteringRDDByQuery {
     cache.put(person.getId, person)
 
 
+
+
+    val infinispanHost = "127.0.0.1:11222;127.0.0.1:11372"
+
+    val conf = new SparkConf()
+      .setAppName("spark-infinispan-example-filter-RDD-scala")
+      .setMaster("local[*]")
+    val sc = new SparkContext(conf)
+
+    val infinispanProperties = new Properties
+    infinispanProperties.put("infinispan.client.hotrod.server_list", infinispanHost)
+    infinispanProperties.put("infinispan.rdd.cacheName", "default")
+
+    // Filtering by a Query
+    val query: Query = Search.getQueryFactory(cacheManager.getCache("addressbook_indexed"))
+      .from(classOf[Person])
+      .having("name").like("a")
+      .toBuilder.build()
+
+    println(query.list())
+
+
+//    // Create RDD from cache
+//    val infinispanRDD = new InfinispanRDD[Integer, Person](sc, configuration = infinispanProperties)
+//      .filterByQuery[Person](query, classOf[Person])
+//
+//    infinispanRDD.foreach(println)
+
   }
 
   private def readResource(resourcePath: String): String = {
     val is = getClass.getResourceAsStream(resourcePath)
     val contents = org.jbugkorea.utils.Util.readResource(is)
-    println(contents)
+//    println(contents)
     contents
   }
 }
