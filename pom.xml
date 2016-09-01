@@ -160,10 +160,16 @@
 
     <dependencies>
 
+        <!--<dependency>-->
+            <!--<groupId>org.infinispan</groupId>-->
+            <!--<artifactId>infinispan-spark</artifactId>-->
+            <!--<version>0.3.0.Final-redhat-1</version>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-spark</artifactId>
-            <version>0.3.0.Final-redhat-1</version>
+            <artifactId>infinispan-spark_2.10</artifactId>
+            <version>0.3</version>
         </dependency>
 
         <dependency>
