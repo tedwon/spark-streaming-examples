@@ -56,8 +56,9 @@ object FilteringRDDByQueryNew {
     }
 
     val defaultCache = cacheManager.getCache[Int, Person]
-    (1 to 20).foreach { idx =>
+    (1 to 20000000).foreach { idx =>
       defaultCache.put(idx, new Person(s"name$idx", idx, new Address(s"street$idx", idx, "N/A")));
+      Thread.sleep(100)
     }
 
     val infinispanHost = "127.0.0.1:11222;127.0.0.1:11372"
