@@ -4,6 +4,7 @@ import java.util
 
 import org.infinispan.client.hotrod.{RemoteCache, RemoteCacheManager, VersionedValue}
 import org.infinispan.server.test.client.hotrod.EventLogListener
+import org.infinispan.spark.domain.User
 import org.junit.Assert._
 import org.junit.{After, Before, Test}
 

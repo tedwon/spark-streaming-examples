@@ -72,8 +72,8 @@ object FilteringRDDByQueryNew {
     val sc = new SparkContext(conf)
 
     val configuration = new Properties
-    configuration.put(InfinispanRDD.ProtoFiles, protoConfig)
-    configuration.put(InfinispanRDD.Marshallers, Seq(classOf[AddressMarshaller], classOf[PersonMarshaller]))
+    configuration.put("infinispan.rdd.query.proto.protofiles", protoConfig)
+    configuration.put("infinispan.rdd.query.proto.marshallers", Seq(classOf[AddressMarshaller], classOf[PersonMarshaller]))
     configuration.put("infinispan.client.hotrod.server_list", infinispanHost)
 
 

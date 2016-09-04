@@ -1,4 +1,4 @@
-package org.jbugkorea;
+package org.infinispan.spark.domain;
 
 import com.google.common.base.Objects;
 

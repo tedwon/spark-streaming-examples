@@ -7,8 +7,8 @@ import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
+import org.infinispan.spark.domain.User
 import org.infinispan.spark.stream._
-import org.jbugkorea.User
 
 
 object CreatingDStream {

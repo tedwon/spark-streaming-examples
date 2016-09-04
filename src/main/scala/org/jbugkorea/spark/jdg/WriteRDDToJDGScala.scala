@@ -2,12 +2,14 @@ package org.jbugkorea.spark.jdg
 
 import java.util.Properties
 
-import com.google.common.collect.Sets
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.infinispan.client.hotrod.{RemoteCache, RemoteCacheManager}
 import org.infinispan.spark._
-import org.jbugkorea.{Author, Book}
+import org.infinispan.spark.domain.Book
+
+import scala.collection.JavaConverters._
+
 
 object WriteRDDToJDGScala {
   def main(args: Array[String]) {
@@ -22,11 +24,8 @@ object WriteRDDToJDGScala {
     val sc = new SparkContext(conf)
 
     // Create an RDD of Books
-    val authors = Sets.newHashSet[Author]
-    authors.add(new Author("Negus, Chris", ""))
-    authors.add(new Author("Urma, Raoul-Gabriel", ""))
-    val bookOne = new Book("Linux Bible", "desc", 2015, authors)
-    val bookTwo = new Book("Java 8 in Action", "desc", 2014, authors)
+    val bookOne = new Book("Linux Bible", "desc", 2015, "Chris")
+    val bookTwo = new Book("Java 8 in Action", "desc", 2014, "Brian")
 
     val sampleBookRDD = sc.parallelize(Seq(bookOne, bookTwo))
     val pairsRDD = sampleBookRDD.zipWithIndex().map(_.swap)
@@ -39,12 +38,13 @@ object WriteRDDToJDGScala {
     pairsRDD.writeToInfinispan(infinispanProperties)
 
 
-    // Obtain the remote cache
+    // Debug cache data
     val cacheManager = new RemoteCacheManager
     val cache: RemoteCache[Long, Book] = cacheManager.getCache()
-
-    val book: Book = cache.get(0L)
-    println(book)
-
+    cache.keySet().asScala
+      .foreach(key => {
+        val value = cache.get(key)
+        println(s"key=$key value=$value")
+      })
   }
 }
